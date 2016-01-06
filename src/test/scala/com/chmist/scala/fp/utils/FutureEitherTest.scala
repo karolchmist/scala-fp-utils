@@ -40,10 +40,9 @@ class FutureEitherTest extends Specification {
       } yield b
       result.run must be_==(Right(20)).await
     }
-    "forComprehension with exceptions" in pending {
-      // TODO peut-on tester une exception ?
+    "forComprehension with exceptions" in {
       val result = for {
-        a <- FutureEither[MyError, Int](Future{throw new IllegalStateException()})
+        a <- FutureEither[MyError, Int](Future.failed{new IllegalStateException()})
         b <- FutureEither(Future(Right(5)))
       } yield a + b
       result.run must throwA[IllegalStateException].await
