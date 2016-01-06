@@ -1,4 +1,4 @@
-package com.chmist.futureeither
+package com.chmist.scala.fp.utils
 
 import scala.concurrent.{ExecutionContext, Future}
 

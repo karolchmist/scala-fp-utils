@@ -1,4 +1,4 @@
-package com.chmist.futureeither
+package com.chmist.scala.fp.utils
 
 import org.specs2.mutable.Specification
 import scala.concurrent.Future
@@ -32,6 +32,13 @@ class FutureEitherTest extends Specification {
         b <- FutureEither.point(20)
       } yield a + b
       result.run must be_==(Right(30)).await
+    }
+    "forComprehension with map" in {
+      val result = for {
+        a <- FutureEither.point[MyError, Int](10)
+        b = a + 10
+      } yield b
+      result.run must be_==(Right(20)).await
     }
     "forComprehension with exceptions" in pending {
       // TODO peut-on tester une exception ?
