@@ -69,6 +69,14 @@ class FutureEitherTest extends Specification {
       } yield a + b
       result.run must be_==(Left(MyError("error"))).await
     }
+    "pointFromFuture" in {
+      val result = FutureEither.pointFromFuture(Future.successful(10))
+      result.run must be_==(Right(10)).await
+    }
+    "failureFromFuture" in {
+      val result = FutureEither.failureFromFuture(Future.successful(10))
+      result.run must be_==(Left(10)).await
+    }
     "fold point" in {
       val result = FutureEither.point[MyError, Int](10).fold(e => None, s => Some(s.toString))
       result must be_==(Some("10")).await
